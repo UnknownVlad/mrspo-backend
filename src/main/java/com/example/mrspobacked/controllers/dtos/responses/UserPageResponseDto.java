@@ -1,5 +1,6 @@
-package com.example.mrspobacked.controllers.dtos;
+package com.example.mrspobacked.controllers.dtos.responses;
 
+import com.example.mrspobacked.controllers.dtos.common.ComplexErrorDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -22,4 +23,6 @@ public class UserPageResponseDto {
     @Schema(description = "Роли пользователя", example = "[USER_ROLE]")
     Collection<String> roles;
 
+    @Schema(description = "Описание ошибки")
+    ComplexErrorDto error;
 }

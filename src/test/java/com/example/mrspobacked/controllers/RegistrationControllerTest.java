@@ -1,7 +1,7 @@
 package com.example.mrspobacked.controllers;
 
-import com.example.mrspobacked.controllers.dtos.RegistrationUserRequestDto;
-import com.example.mrspobacked.controllers.dtos.RegistrationUserResponseDto;
+import com.example.mrspobacked.controllers.dtos.requests.RegistrationUserRequestDto;
+import com.example.mrspobacked.controllers.dtos.responses.RegistrationUserResponseDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

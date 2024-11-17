@@ -10,7 +10,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 
-//@Entity
 @MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +23,7 @@ public class BaseEntity {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     OffsetDateTime createdAt;
-    @Column(name = "updated_at", nullable = false, updatable = false)
+    @Column(name = "updated_at", nullable = false)
     OffsetDateTime updatedAt;
 
     @PrePersist

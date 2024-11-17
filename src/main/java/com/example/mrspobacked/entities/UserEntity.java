@@ -1,5 +1,6 @@
 package com.example.mrspobacked.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import lombok.AccessLevel;
@@ -24,7 +25,9 @@ import java.util.Collection;
 public class UserEntity extends BaseEntity implements UserDetails {
     private static final String AUTHORITIES_DELIMITER = "::";
 
+    @Column(unique = true, nullable = false)
     String username;
+    @Column(nullable = false)
     String password;
 
     String authorities;

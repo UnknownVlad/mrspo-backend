@@ -1,4 +1,4 @@
-package com.example.mrspobacked.controllers.dtos;
+package com.example.mrspobacked.controllers.dtos.requests;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -24,5 +24,4 @@ public class RegistrationUserRequestDto {
     @NotBlank(message = "Пароль является обязательным")
     @Size(min = 8, message = "Размер пароля должен быть не меньше 8 символов")
     String password;
-
 }
