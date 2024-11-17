@@ -1,0 +1,14 @@
+.button-login {
+  background-color: #FFED4A;
+  border-radius: 8px;
+  padding: 13px 64px;
+  color: #171A19;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s;
+
+  &:active{
+    transform: scale(0.98)
+  }
+}
