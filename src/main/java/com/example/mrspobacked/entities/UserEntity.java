@@ -1,8 +1,6 @@
 package com.example.mrspobacked.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,8 +13,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
+@Table(name = "users")
 @Data
 @SuperBuilder
 @AllArgsConstructor
@@ -32,6 +32,8 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     String authorities;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RecipeEntity> recipes;
 
     @Transient
     @Override

@@ -39,10 +39,18 @@ public class SpringSecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/user/registration").permitAll()
-                        .requestMatchers("/api/user/auth").permitAll()
+                        /*.requestMatchers(
+                                "/api/ingredient/add",
+                                "/api/ingredient/update").authenticated()*/
+                        .requestMatchers("/api/ingredient/get").permitAll()
                         .requestMatchers("/api/user/page").authenticated()
-                        .requestMatchers("/v3/api-docs", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                        .requestMatchers(
+                                "/api/user/registration",
+                                "/api/user/auth").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

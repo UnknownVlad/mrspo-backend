@@ -3,6 +3,7 @@ package com.example.mrspobacked.controllers;
 import com.example.mrspobacked.controllers.dtos.requests.AuthUserRequestDto;
 import com.example.mrspobacked.controllers.dtos.requests.RegistrationUserRequestDto;
 import com.example.mrspobacked.controllers.dtos.responses.AuthUserResponseDto;
+import com.example.mrspobacked.controllers.dtos.responses.DeleteIngredientResponseDto;
 import com.example.mrspobacked.controllers.dtos.responses.RegistrationUserResponseDto;
 import com.example.mrspobacked.controllers.dtos.responses.UserPageResponseDto;
 import com.example.mrspobacked.entities.UserEntity;
@@ -21,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Validated
 @RestController
@@ -33,7 +35,6 @@ public class UserController {
 
     private final JwtService jwtService;
 
-
     @PostMapping("/registration")
     @Operation(summary = "Регистрация пользователя", description = "Позволяет создать нового пользователя")
     public ResponseEntity<RegistrationUserResponseDto> registration(@Valid @RequestBody RegistrationUserRequestDto registrationUserRequestDto) {
@@ -41,7 +42,6 @@ public class UserController {
         userService.createUser(registrationUserRequestDto);
         return ResponseEntity.ok(RegistrationUserResponseDto.builder().success(true).build());
     }
-
 
     @PostMapping("/auth")
     @Operation(summary = "Вход в аккаунт", description = "Позволяет войти в аккаунт")
@@ -52,7 +52,6 @@ public class UserController {
         String jwtToken = jwtService.generateToken(userEntity);
         return ResponseEntity.ok(AuthUserResponseDto.builder().success(true).token(jwtToken).expirationTime(jwtService.getExpirationTime()).build());
     }
-
 
     @GetMapping("/page")
     @Operation(summary = "Страница пользователя", description = "Позволяет посмотреть информацию о пользователе")
@@ -67,22 +66,5 @@ public class UserController {
                         .build()
         );
     }
-
-    //todo: на удаление
-    /*@GetMapping("/all")
-    @Operation(summary = "Все пользователи", description = "Позволяет получить всех пользователей")
-    public ResponseEntity<List<UserPageResponseDto>> all() {
-        log.debug("UserController#all");
-        return ResponseEntity.ok(
-                userService.allUsers().stream().map(userEntity ->
-                        UserPageResponseDto.builder()
-                                .id(userEntity.getId())
-                                .username(userEntity.getUsername())
-                                .roles(userEntity.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
-                                .build()
-                ).toList());
-    }*/
-
-
 
 }
