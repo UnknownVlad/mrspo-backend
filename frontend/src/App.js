@@ -1,5 +1,4 @@
 import './styles/App.css';
-import Login from "./pages/LoginPage/Login";
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 
