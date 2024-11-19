@@ -9,9 +9,8 @@ import {LoginButton} from "../../components/ui/LoginButton/LoginButton";
 const Login = () => {
     const location = useLocation();
     const isLogin = location.pathname === LOGIN_ROUTE;
-
     const [formData, setFormData] = useState({
-        login: '',
+        username: '',
         password: ''
     });
 
@@ -24,9 +23,13 @@ const Login = () => {
     };
 
     const handleRegister = async () => {
+        console.log("Data sent:", {
+            username: formData.username,
+            password: formData.password
+        });
         try {
-            const response = await axios.post('http://localhost:8080/registration', {
-                login: formData.login,
+            const response = await axios.post('http://localhost:8080/api/user/registration', {
+                username: formData.username,
                 password: formData.password
             });
             console.log('Registration successful:', response.data);
@@ -38,7 +41,7 @@ const Login = () => {
     const handleLogin = async () => {
         try {
             const response = await axios.post('http://localhost:8080/api/user/auth', {
-                login: formData.login,
+                username: formData.username,
                 password: formData.password
             });
             console.log('Login successful:', response.data);
@@ -48,7 +51,7 @@ const Login = () => {
     };
 
     const inputFields = [
-        { span: 'Login', placeholder: 'Email or phone number', type: 'text', name: 'login' },
+        { span: 'Login', placeholder: 'Email or phone number', type: 'text', name: 'username' },
         { span: 'Password', placeholder: 'Enter password', type: 'password', name: 'password' }
     ];
 
