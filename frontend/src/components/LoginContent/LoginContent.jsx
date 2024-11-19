@@ -2,15 +2,16 @@ import React from 'react';
 import './LoginContent.scss';
 import {Input} from "../ui/Input/Input";
 import {LoginButton} from "../ui/LoginButton/LoginButton";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {REGISTRATION_ROUTE} from "../../utils/consts";
 import {loginService} from "../../utils/authService";
 
 export const LoginContent = ({ inputFields, formData, handleInputChange }) => {
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
-            await loginService(formData);
+            await loginService(formData, navigate);
             console.log('Login successful');
         } catch (error) {
             console.error('Login failed:', error);

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Login.scss';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 import { LOGIN_ROUTE } from "../../utils/consts";
 import { LoginContent } from "../../components/LoginContent/LoginContent";
 import { RegistrationContent } from "../../components/RegistrationContent/RegistrationContent";
