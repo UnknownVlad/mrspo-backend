@@ -7,6 +7,7 @@ import com.example.mrspobacked.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @Service
@@ -17,6 +18,10 @@ public class BookService {
     public BookEntity getById(Long id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new IngredientNotFoundException("Книга с id: %d не найден".formatted(id)));
+    }
+
+    public List<BookEntity> getByBookNameLike(String bookName){
+        return bookRepository.findAllByBookNameLike(bookName);
     }
 
     public List<BookEntity> getAll() {
