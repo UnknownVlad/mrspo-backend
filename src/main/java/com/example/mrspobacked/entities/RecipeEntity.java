@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
+//todo: на удаление
+/*
 @Entity
 @Table(name = "recipes")
 @Data
@@ -39,3 +41,4 @@ public class RecipeEntity extends BaseEntity {
     private UserEntity user;
 
 }
+*/

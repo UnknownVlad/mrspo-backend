@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DeleteIngredientResponseDto {
+public class DeleteBookResponseDto {
 
     @Schema(description = "Успешное ли удаление", example = "true")
     Boolean success;

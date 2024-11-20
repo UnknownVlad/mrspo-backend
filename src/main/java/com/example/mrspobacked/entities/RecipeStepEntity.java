@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+//todo: на удаление
+/*
 @Entity
 @Table(name = "recipes")
 @Data
@@ -27,3 +29,4 @@ public class RecipeStepEntity extends BaseEntity {
 
 
 }
+*/

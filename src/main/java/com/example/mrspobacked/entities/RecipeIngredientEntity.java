@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-@Entity
+//todo: на удаление
+/*@Entity
 @Table(name = "recipe_ingredient")
 @Data
 @SuperBuilder
@@ -30,4 +31,4 @@ public class RecipeIngredientEntity extends BaseEntity {
 
     Double amount;
     String unit;
-}
+}*/

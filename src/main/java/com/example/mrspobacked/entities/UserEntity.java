@@ -32,8 +32,9 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     String authorities;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RecipeEntity> recipes;
+    //todo:  на удаление
+    /*@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RecipeEntity> recipes;*/
 
     @Transient
     @Override

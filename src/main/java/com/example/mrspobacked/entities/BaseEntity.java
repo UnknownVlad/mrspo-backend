@@ -21,7 +21,7 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false/*, updatable = false*/)
     OffsetDateTime createdAt;
     @Column(name = "updated_at", nullable = false)
     OffsetDateTime updatedAt;

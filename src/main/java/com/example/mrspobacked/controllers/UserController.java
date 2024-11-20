@@ -3,11 +3,9 @@ package com.example.mrspobacked.controllers;
 import com.example.mrspobacked.controllers.dtos.requests.AuthUserRequestDto;
 import com.example.mrspobacked.controllers.dtos.requests.RegistrationUserRequestDto;
 import com.example.mrspobacked.controllers.dtos.responses.AuthUserResponseDto;
-import com.example.mrspobacked.controllers.dtos.responses.DeleteIngredientResponseDto;
 import com.example.mrspobacked.controllers.dtos.responses.RegistrationUserResponseDto;
 import com.example.mrspobacked.controllers.dtos.responses.UserPageResponseDto;
 import com.example.mrspobacked.entities.UserEntity;
-import com.example.mrspobacked.servises.CustomAuthenticationManagerService;
 import com.example.mrspobacked.servises.JwtService;
 import com.example.mrspobacked.servises.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,9 +18,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @Validated
 @RestController
