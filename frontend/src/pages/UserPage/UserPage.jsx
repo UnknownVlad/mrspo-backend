@@ -4,13 +4,14 @@ import exit from '../icon/exit.svg';
 import './UserPage.scss';
 import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
+import {BookContent} from "../../components/BookContent/BookContent";
 
 
 export const UserPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const userData = location.state?.userData;
+    const { userData, userBookData } = location.state || {};
 
     const logout = () => {
         localStorage.removeItem('token');
@@ -33,9 +34,7 @@ export const UserPage = () => {
                     <span className="user-bottom-span">Exit</span>
                 </div>
             </div>
-            <div className="user-main">
-                <h1 className="user-main-h1">Main</h1>
-            </div>
+            <BookContent bookInfo={userBookData}/>
         </div>
     );
 };

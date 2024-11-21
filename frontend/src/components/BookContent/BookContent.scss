@@ -1,0 +1,46 @@
+.user-main {
+  display: flex;
+  padding: 136px 0;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .user-main-h1 {
+    color: #171A19;
+    font-size: 32px;
+    font-weight: 600;
+  }
+}
+
+.book-container {
+  margin-left: 30px;
+  margin-top: 80px;
+}
+
+.book-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 147px;
+  height: 241px;
+  background-color: #FDFDFD;
+  border-radius: 9px;
+  padding: 5px 10px;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 184px;
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  span {
+    color: #868C92;
+    font-size: 15px;
+  }
+}

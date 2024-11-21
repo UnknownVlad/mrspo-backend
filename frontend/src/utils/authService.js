@@ -14,6 +14,17 @@ export const getUserData = async () => {
     }
 };
 
+export const getUserBookData = async () => {
+    try {
+        const response = await axios.get('http://localhost:8080/api/book/get/all');
+        console.log('Book:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to fetch book data:', error);
+        throw error;
+    }
+};
+
 export const loginService = async (formData, navigate) => {
     const { username, password } = formData;
     console.log(username)
@@ -26,7 +37,8 @@ export const loginService = async (formData, navigate) => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
         const userData = await getUserData();
-        navigate('/account', { state: { userData } });
+        const userBookData = await getUserBookData();
+        navigate('/account', { state: { userData, userBookData } });
 
         return userData;
     } catch (error) {
