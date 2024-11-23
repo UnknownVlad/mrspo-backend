@@ -4,6 +4,7 @@ import com.example.mrspobacked.controllers.dtos.requests.RegistrationUserRequest
 import com.example.mrspobacked.entities.UserEntity;
 import com.example.mrspobacked.exceptions.UserAlreadyExistsException;
 import com.example.mrspobacked.exceptions.UserNotFoundException;
+import com.example.mrspobacked.exceptions.UserUnauthorizedException;
 import com.example.mrspobacked.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,12 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("Пользователь с таким именем не найден"));
+    }
+
+
+    private UserEntity findByUsername(String username){
         return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("Пользователь с таким именем не найден"));
     }
 
@@ -49,13 +55,15 @@ public class UserService implements UserDetailsService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.debug("authentication: {}", authentication);
         if (authentication == null || !authentication.isAuthenticated()) {
-            throw new UserNotFoundException("Пользователь не аутентифицирован");
+            throw new UserUnauthorizedException("Пользователь не аутентифицирован");
         }
 
-        return authentication.getPrincipal() instanceof UserEntity ? (UserEntity) authentication.getPrincipal() : null;
-        /*String username = authentication.getName();
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException("Пользователь с таким именем не найден"));*/
+        return findByUsername(authentication.getName());
+    }
+
+    public Long currentUserId() {
+        log.debug("UserService#currentUserId");
+        return currentUser().getId();
     }
 
     public Collection<UserEntity> allUsers() {

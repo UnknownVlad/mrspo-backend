@@ -8,10 +8,13 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Детали ошибки")
+@Schema(description = "Детали ошибки валидации")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AdditionalInfo {
+public class ValidationInfo {
 
-    @Schema(description = "Описание дополнительной проблемы")
+    @Schema(description = "Поле")
+    String field;
+
+    @Schema(description = "Проблема валидации")
     String description;
 }

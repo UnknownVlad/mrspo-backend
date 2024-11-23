@@ -24,8 +24,14 @@ public class ComplexErrorDto {
     @Schema(description = "Краткое описание ошибки")
     String error;
 
+    @Schema(description = "Сообщение ошибки")
     String message;
+
+    @Schema(description = "Детали ошибки валидации")
+    List<ValidationInfo> validationDetails;
 
     @Schema(description = "Детали ошибки")
     List<AdditionalInfo> details;
+
+
 }

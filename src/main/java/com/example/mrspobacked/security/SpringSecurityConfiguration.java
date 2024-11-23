@@ -42,11 +42,13 @@ public class SpringSecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((requests) -> requests
-                        /*.requestMatchers(
-                                "/api/ingredient/add",
-                                "/api/ingredient/update").authenticated()*/
-                        .requestMatchers("/api/ingredient/get").permitAll()
                         .requestMatchers("/api/user/page").authenticated()
+                        .requestMatchers(
+                                "/api/book/add",
+                                "/api/book/update/",
+                                "api/book/delete/"
+                        ).authenticated()
+                        .requestMatchers("/api/book/get/**").authenticated()
                         .requestMatchers(
                                 "/api/user/registration",
                                 "/api/user/auth").permitAll()
