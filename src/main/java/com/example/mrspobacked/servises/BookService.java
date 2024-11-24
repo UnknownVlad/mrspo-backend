@@ -14,6 +14,10 @@ import java.util.List;
 public class BookService {
     private final BookRepository bookRepository;
 
+    public long count() {
+        return bookRepository.count();
+    }
+
     public BookEntity getById(Long id) {
         return bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException("Книга с id: %d не найден".formatted(id)));

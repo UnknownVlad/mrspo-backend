@@ -4,9 +4,13 @@ import com.example.mrspobacked.controllers.dtos.requests.AuthUserRequestDto;
 import com.example.mrspobacked.controllers.dtos.requests.RegistrationUserRequestDto;
 import com.example.mrspobacked.controllers.dtos.responses.AuthUserResponseDto;
 import com.example.mrspobacked.controllers.dtos.responses.RegistrationUserResponseDto;
+import com.example.mrspobacked.controllers.dtos.responses.UserActionsResponseDto;
 import com.example.mrspobacked.controllers.dtos.responses.UserPageResponseDto;
+import com.example.mrspobacked.entities.UserActionEntity;
 import com.example.mrspobacked.entities.UserEntity;
+import com.example.mrspobacked.mappers.ActionMapper;
 import com.example.mrspobacked.servises.JwtService;
+import com.example.mrspobacked.servises.UserActionService;
 import com.example.mrspobacked.servises.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,6 +23,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Validated
 @RestController
 @RequestMapping("/api/user")
@@ -27,8 +33,9 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UserController {
     private final UserService userService;
-
     private final JwtService jwtService;
+    private final UserActionService userActionService;
+    private final ActionMapper actionMapper;
 
     @PostMapping("/registration")
     @Operation(summary = "Регистрация пользователя", description = "Позволяет создать нового пользователя")
@@ -49,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping("/page")
-    @Operation(summary = "Страница пользователя", description = "Позволяет посмотреть информацию о пользователе")
+    @Operation(summary = "Страница пользователя", description = "Позволяет посмотреть информацию о пользователе (authenticated)")
     public ResponseEntity<UserPageResponseDto> page() {
         log.debug("UserController#page");
         UserEntity currentUser = userService.currentUser();
@@ -58,6 +65,19 @@ public class UserController {
                         .id(currentUser.getId())
                         .username(currentUser.getUsername())
                         .roles(currentUser.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
+                        .build()
+        );
+    }
+
+    @GetMapping("/actions")
+    @Operation(summary = "Действия пользователя", description = "Позволяет посмотреть информацию о действиях пользователя (authenticated)")
+    public ResponseEntity<UserActionsResponseDto> actions() {
+        log.debug("UserController#actions");
+        UserEntity currentUser = userService.currentUser();
+        List<UserActionEntity> userActionEntities = userActionService.getUserActions(currentUser.getId());
+        return ResponseEntity.ok(
+                UserActionsResponseDto.builder()
+                        .actions(userActionEntities.stream().map(actionMapper::toDto).toList())
                         .build()
         );
     }

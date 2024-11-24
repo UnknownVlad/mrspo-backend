@@ -1,5 +1,6 @@
 package com.example.mrspobacked.mappers;
 
+import com.example.mrspobacked.controllers.dtos.common.BookDto;
 import com.example.mrspobacked.controllers.dtos.requests.RequestBookDto;
 
 import com.example.mrspobacked.controllers.dtos.responses.ResponseBookDto;
@@ -22,8 +23,8 @@ public class BookMapper {
                 .onSale(requestBookDto.getOnSale())
                 .build();
     }
-    public ResponseBookDto toDto(BookEntity bookDto) {
-        return ResponseBookDto.builder()
+    public BookDto toDto(BookEntity bookDto) {
+        return BookDto.builder()
                 .id(bookDto.getId())
                 .bookName(bookDto.getBookName())
                 .description(bookDto.getDescription())

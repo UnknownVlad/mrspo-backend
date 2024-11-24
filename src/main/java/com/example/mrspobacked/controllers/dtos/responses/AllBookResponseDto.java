@@ -14,10 +14,10 @@ import java.util.Collection;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ResponseBookDto {
+public class AllBookResponseDto {
 
-    @Schema(description = "Книга")
-    BookDto book;
+    @Schema(description = "Список книг")
+    Collection<BookDto> books;
 
     @Schema(description = "Описание ошибки")
     ComplexErrorDto error;

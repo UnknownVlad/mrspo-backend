@@ -32,4 +32,12 @@ public class UserActionService {
         return userActionRepository.save(userActionEntity);
     }
 
+    public List<UserActionEntity> getUserActions(Long userId) {
+        return userActionRepository.findByUserId(userId);
+    }
+
+    public List<UserActionEntity> getUserActions(Long userId, String requestType) {
+        return userActionRepository.findByUserIdAndRequestType(userId, requestType);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.mrspobacked.controllers;
 
 import com.example.mrspobacked.controllers.dtos.requests.RequestBookDto;
+import com.example.mrspobacked.controllers.dtos.responses.AllBookResponseDto;
 import com.example.mrspobacked.controllers.dtos.responses.DeleteBookResponseDto;
 import com.example.mrspobacked.controllers.dtos.responses.ResponseBookDto;
 import com.example.mrspobacked.entities.BookEntity;
@@ -37,9 +38,9 @@ public class BookController {
 
 
     @PostMapping("/add")
-    @Operation(summary = "Добавление книги", description = "Позволяет добавить новую книгу")
+    @Operation(summary = "Добавление книги", description = "Позволяет добавить новую книгу (authenticated)")
     public ResponseEntity<ResponseBookDto> addBook(@Valid @RequestBody RequestBookDto requestBookDto) {
-        log.debug("IngredientController#addBook: {}", requestBookDto);
+        log.debug("BookController#addBook: {}", requestBookDto);
         userActionService.createAndSaveUserAction(
                 userService.currentUserId(),
                 "/api/book/add",
@@ -49,13 +50,13 @@ public class BookController {
         );
 
         BookEntity bookEntity = bookService.save(bookMapper.toEntity(requestBookDto));
-        return ResponseEntity.ok(bookMapper.toDto(bookEntity));
+        return ResponseEntity.ok(ResponseBookDto.builder().book(bookMapper.toDto(bookEntity)).build());
     }
 
     @GetMapping("/get/{id}")
-    @Operation(summary = "Получение книги", description = "Позволяет получить книгу по id")
+    @Operation(summary = "Получение книги", description = "Позволяет получить книгу по id (authenticated)")
     public ResponseEntity<ResponseBookDto> getBookById(@PathVariable Long id) {
-        log.debug("IngredientController#getBookById: {}", id);
+        log.debug("BookController#getBookById: {}", id);
         userActionService.createAndSaveUserAction(
                 userService.currentUserId(),
                 "/api/book/get/{id}",
@@ -66,13 +67,14 @@ public class BookController {
 
         BookEntity bookEntity = bookService.getById(id);
 
-        return ResponseEntity.ok(bookMapper.toDto(bookEntity));
+        return ResponseEntity.ok(ResponseBookDto.builder().book(bookMapper.toDto(bookEntity)).build());
     }
 
-    @GetMapping("/get/{nameBook}")
-    @Operation(summary = "Получение книги", description = "Позволяет получить книгу по подобию названия")
+    //todo: отредактировать эндпоинт
+    /*@GetMapping("/get/{nameBook}")
+    @Operation(summary = "Получение книги", description = "Позволяет получить книгу по подобию названия (authenticated)")
     public ResponseEntity<List<ResponseBookDto>> getBookByName(@PathVariable String nameBook) {
-        log.debug("IngredientController#getBookByName: {}", nameBook);
+        log.debug("BookController#getBookByName: {}", nameBook);
         userActionService.createAndSaveUserAction(
                 userService.currentUserId(),
                 "/api/book/get/{nameBook}",
@@ -84,13 +86,13 @@ public class BookController {
         List<BookEntity> bookEntities = bookService.getByBookNameLike(nameBook);
 
         return ResponseEntity.ok(bookEntities.stream().map(bookMapper::toDto).toList());
-    }
+    }*/
 
     //todo: потенциально добавить пагинацию
     @GetMapping("/get/all")
-    @Operation(summary = "Получить список всех книг", description = "Позволяет получить все книги")
-    public ResponseEntity<List<ResponseBookDto>> getAllBooks() {
-        log.debug("IngredientController#getAllBooks");
+    @Operation(summary = "Получить список всех книг", description = "Позволяет получить все книги (authenticated)")
+    public ResponseEntity<AllBookResponseDto> getAllBooks() {
+        log.debug("BookController#getAllBooks");
         userActionService.createAndSaveUserAction(
                 userService.currentUserId(),
                 "/api/book/get/all",
@@ -100,14 +102,18 @@ public class BookController {
         );
         List<BookEntity> bookEntities = bookService.getAll();
 
-        return ResponseEntity.ok(bookEntities.stream().map(bookMapper::toDto).toList());
+        return ResponseEntity.ok(
+                AllBookResponseDto.builder()
+                        .books(bookEntities.stream().map(bookMapper::toDto).toList())
+                        .build()
+                );
     }
 
 
     @PutMapping("/update/{id}")
-    @Operation(summary = "Обновление книги", description = "Позволяет обновить существующую книгу")
+    @Operation(summary = "Обновление книги", description = "Позволяет обновить существующую книгу (authenticated)")
     public ResponseEntity<ResponseBookDto> updateBook(@PathVariable Long id, @Valid @RequestBody RequestBookDto requestBookDto) {
-        log.debug("IngredientController#updateBook: {}", id);
+        log.debug("BookController#updateBook: {}", id);
 
         userActionService.createAndSaveUserAction(
                 userService.currentUserId(),
@@ -121,13 +127,13 @@ public class BookController {
         );
 
         BookEntity bookEntity = bookService.update(id, requestBookDto);
-        return ResponseEntity.ok(bookMapper.toDto(bookEntity));
+        return ResponseEntity.ok(ResponseBookDto.builder().book(bookMapper.toDto(bookEntity)).build());
     }
 
     @DeleteMapping("/delete/{id}")
-    @Operation(summary = "Удалить книгу по id", description = "Позволяет удалить существующую книгу по id")
+    @Operation(summary = "Удалить книгу по id", description = "Позволяет удалить существующую книгу по id (authenticated)")
     public ResponseEntity<DeleteBookResponseDto> deleteBook(@PathVariable Long id) {
-        log.debug("IngredientController#deleteBook: {}", id);
+        log.debug("BookController#deleteBook: {}", id);
         userActionService.createAndSaveUserAction(
                 userService.currentUserId(),
                 "/api/book/delete/{id}",

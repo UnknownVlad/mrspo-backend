@@ -15,16 +15,16 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ComplexErrorDto {
 
-    @Schema(description = "Временная метка ошибки")
+    @Schema(description = "Временная метка ошибки", example = "2024-11-24T17:46:41.115331600")
     LocalDateTime timestamp;
 
-    @Schema(description = "Код состояния HTTP")
+    @Schema(description = "Код состояния HTTP", example = "400")
     int status;
 
-    @Schema(description = "Краткое описание ошибки")
+    @Schema(description = "Краткое описание ошибки", example = "Bad Request")
     String error;
 
-    @Schema(description = "Сообщение ошибки")
+    @Schema(description = "Сообщение ошибки", example = "Ошибка валидации параметров запроса")
     String message;
 
     @Schema(description = "Детали ошибки валидации")

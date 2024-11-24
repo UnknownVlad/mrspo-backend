@@ -1,7 +1,7 @@
 package com.example.mrspobacked.controllers.dtos.responses;
 
-import com.example.mrspobacked.controllers.dtos.common.BookDto;
 import com.example.mrspobacked.controllers.dtos.common.ComplexErrorDto;
+import com.example.mrspobacked.controllers.dtos.common.UserActionDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,10 +14,10 @@ import java.util.Collection;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ResponseBookDto {
+public class UserActionsResponseDto {
 
-    @Schema(description = "Книга")
-    BookDto book;
+    @Schema(description = "Список книг")
+    Collection<UserActionDto> actions;
 
     @Schema(description = "Описание ошибки")
     ComplexErrorDto error;

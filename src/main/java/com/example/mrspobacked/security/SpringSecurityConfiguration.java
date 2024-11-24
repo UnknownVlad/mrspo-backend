@@ -52,6 +52,7 @@ public class SpringSecurityConfiguration {
                         .requestMatchers(
                                 "/api/user/registration",
                                 "/api/user/auth").permitAll()
+                        .requestMatchers("/api/user/actions").authenticated()
                         .requestMatchers(
                                 "/v3/api-docs",
                                 "/swagger-ui.html",

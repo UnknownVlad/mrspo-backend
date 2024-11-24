@@ -12,9 +12,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ValidationInfo {
 
-    @Schema(description = "Поле")
+    @Schema(description = "Поле", example = "password")
     String field;
 
-    @Schema(description = "Проблема валидации")
+    @Schema(description = "Проблема валидации", example = "Размер пароля должен быть не меньше 8 символов")
     String description;
 }
