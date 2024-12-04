@@ -27,7 +27,6 @@ export const getUserBookData = async () => {
 
 export const loginService = async (formData, navigate) => {
     const { username, password } = formData;
-    console.log(username)
 
     try {
         const response = await axios.post(`${API_URL}/auth`, { username, password });
@@ -38,7 +37,11 @@ export const loginService = async (formData, navigate) => {
 
         const userData = await getUserData();
         const userBookData = await getUserBookData();
-        navigate('/account', { state: { userData, userBookData } });
+
+        localStorage.setItem('userData', JSON.stringify(userData));
+        localStorage.setItem('userBookData', JSON.stringify(userBookData));
+
+        navigate('/account');
 
         return userData;
     } catch (error) {

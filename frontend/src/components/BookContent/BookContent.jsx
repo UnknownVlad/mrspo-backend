@@ -5,18 +5,15 @@ import ReactCardFlip from "react-card-flip";
 export const BookContent = ({ bookInfo }) => {
     const [flippedCards, setFlippedCards] = useState({}); // Хранит состояние каждой карточки
 
-    const handleMouseEnter = (id) => {
+    const handleCardClick = (id) => {
         setFlippedCards((prevState) => ({
             ...prevState,
-            [id]: true, // Переворачиваем карточку с определённым ID
+            [id]: !prevState[id],
         }));
     };
 
-    const handleMouseLeave = (id) => {
-        setFlippedCards((prevState) => ({
-            ...prevState,
-            [id]: false, // Возвращаем карточку с определённым ID
-        }));
+    const handleBuyNowClick = (event) => {
+        event.stopPropagation();
     };
 
     return (
@@ -30,16 +27,14 @@ export const BookContent = ({ bookInfo }) => {
                             flipDirection="vertical">
                             <div
                                 className="book-block"
-                                onMouseEnter={() => handleMouseEnter(item.id)}
-                                onMouseLeave={() => handleMouseLeave(item.id)}>
+                                onClick={() => handleCardClick(item.id)}>
                                 <h2>ID: {item.id}</h2>
                                 <p>{item.bookName}</p>
                                 <span>{item.authors.join(' ')}</span>
                             </div>
                             <div
                                 className="book-block-back"
-                                onMouseEnter={() => handleMouseEnter(item.id)}
-                                onMouseLeave={() => handleMouseLeave(item.id)}>
+                                onClick={() => handleCardClick(item.id)}>
                                 <div className="book-status">
                                     <h3>{item.genres.join(' ')}</h3>
                                     <div className="book-rating">
@@ -48,7 +43,7 @@ export const BookContent = ({ bookInfo }) => {
                                 </div>
                                 <p>{item.description}</p>
                                 {item.onSale ?
-                                    <button className="buy-button">Buy Now</button>
+                                    <button className="buy-button" onClick={handleBuyNowClick}>Buy Now</button>
                                     :
                                     <button className="buy-button" disabled={true}>Not On Sale</button>}
                             </div>
