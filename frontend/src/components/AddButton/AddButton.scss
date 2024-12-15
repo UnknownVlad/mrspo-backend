@@ -1,0 +1,26 @@
+@mixin style-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 17px;
+  background-color: white;
+  cursor: pointer;
+  padding: 10px 13px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-book {
+  @include style-button;
+
+  & > p {
+    font-size: 17px;
+    font-weight: 400;
+    color: #1C274C;
+  }
+
+  &:active{
+    transform: scale(0.90)
+  }
+}

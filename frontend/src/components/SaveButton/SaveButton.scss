@@ -1,0 +1,9 @@
+@use '../AddButton/AddButton' as bk;
+
+.save-button {
+  @include bk.style-button;
+  & > p {
+    color: #50995E;
+    font-size: 16px;
+  }
+}

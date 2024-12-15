@@ -1,0 +1,9 @@
+@use '../AddButton/AddButton' as bk;
+
+.delete-button {
+  @include bk.style-button;
+  & > p {
+    color: #B9382D;
+    font-size: 16px;
+  }
+}

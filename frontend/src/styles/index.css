@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 body,
-input, button {
+input, button, textarea {
   font-family: "Rubik", serif;
   font-optical-sizing: auto;
   margin: 0;

@@ -1,21 +1,31 @@
 .user-main {
   display: flex;
-  padding: 136px 0;
+  padding: 136px 0 10vh 0;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
+  height: 75vh;
 
-  .user-main-h1 {
-    color: #171A19;
-    font-size: 32px;
-    font-weight: 600;
+  .book-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .user-main-h1 {
+      color: #171A19;
+      font-size: 32px;
+      font-weight: 600;
+    }
   }
 }
 
 .book-container {
   display: flex;
+  width: 60vw;
   gap: 84px;
   margin-left: 30px;
   margin-top: 80px;
+  flex-wrap: wrap
 }
 
 %style-book-background {
@@ -33,6 +43,17 @@
   align-items: flex-start;
   justify-content: center;
   box-shadow: 40px -16px #0c3c34bf;
+
+  .edit-button {
+    cursor: pointer;
+    margin-right: 0;
+    margin-left: auto;
+    transition: transform 0.2s;
+
+    &:active{
+      transform: scale(0.90)
+    }
+  }
 
   h2 {
     display: flex;
@@ -107,5 +128,13 @@
   &:active{
     transform: scale(0.98)
   }
+}
 
+.book-content-bottom {
+  width: 100%;
+
+  & > button {
+    margin-right: 24px;
+    margin-left: auto;
+  }
 }
