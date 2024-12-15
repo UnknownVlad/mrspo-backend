@@ -2,6 +2,23 @@ import axios from "axios";
 
 const API_URL = 'http://localhost:8080/api';
 
+export const getBookById = async (id) => {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${API_URL}/book/get/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
+        console.log(response.data.book);
+        return response.data.book;
+    } catch (error) {
+        console.error("Error fetching book:", error);
+        throw error;
+    }
+};
+
 export const updateBookService = async (id, bookData) => {
     console.log(bookData);
     const { id: _, ...dataWithoutId } = bookData;
@@ -57,6 +74,8 @@ export const deleteBookById = async (id) => {
 };
 
 export const addBookService = async (bookData) => {
+    console.log(bookData);
+    console.log(`${API_URL}/book/add`);
     try {
         const token = localStorage.getItem("token");
         const response = await axios.post(

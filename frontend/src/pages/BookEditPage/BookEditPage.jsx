@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Menu} from "../../components/ui/Menu/Menu";
 import {BookEditContent} from "../../components/BookEditContent/BookEditContent";
-import {addBookService, updateBookService} from "../../utils/authService";
-import {useLocation} from "react-router-dom";
+import {addBookService, getBookById, updateBookService} from "../../utils/authService";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export const BookEditPage = () => {
     const location = useLocation();
-    const { bookData, isEdit } = location.state || {};
+    const { bookId, isEdit } = location.state || {}; // Получаем только ID книги
 
-    const initialFormData = bookData || {
+    const initialFormData = {
         bookName: "",
         description: "",
         pageCount: "",
@@ -20,6 +20,17 @@ export const BookEditPage = () => {
     };
 
     const [formData, setFormData] = useState(initialFormData);
+
+    useEffect(() => {
+        if (isEdit && bookId) {
+            getBookById(bookId)
+                .then((data) => {
+                    setFormData(data);
+                })
+        } else {
+            setFormData(initialFormData);
+        }
+    }, [bookId, isEdit]);
 
     useEffect(() => {
         localStorage.setItem('bookFormData', JSON.stringify(formData));
@@ -53,7 +64,7 @@ export const BookEditPage = () => {
 
         try {
             if (isEdit) {
-                const response = await updateBookService(bookData.id, formattedData);
+                const response = await updateBookService(bookId, formattedData);
                 console.log("Book updated successfully:", response);
             } else {
                 const response = await addBookService(formattedData);
@@ -84,7 +95,7 @@ export const BookEditPage = () => {
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
                 handleArrayChange={handleArrayChange}
-                bookId={bookData?.id}
+                bookId={bookId}
             />
         </div>
     );

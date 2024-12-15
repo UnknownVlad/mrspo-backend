@@ -36,7 +36,7 @@ export const BookContent = ({ bookInfo }) => {
                                     onClick={() => handleCardClick(item.id)}>
                                     <img src={pen} alt="edit book"
                                          className="edit-button"
-                                         onClick={() => {navigate(BOOK_EDIT, { state: { bookData: item, isEdit: true }})}}/>
+                                         onClick={() => {navigate(BOOK_EDIT, { state: { bookId: item.id, isEdit: true }})}}/>
                                     <h2>ID: {item.id}</h2>
                                     <p>{item.bookName}</p>
                                     <span>{item.authors.join(' ')}</span>
