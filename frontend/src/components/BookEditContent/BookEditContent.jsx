@@ -2,8 +2,9 @@ import React from 'react';
 import './BookEditContent.scss';
 import {DeleteButton} from "../DeleteButton/DeleteButton";
 import {SaveButton} from "../SaveButton/SaveButton";
+import {ClearButton} from "../ClearButton/ClearButton";
 
-export const BookEditContent = ({formData, handleSubmit, handleChange, handleArrayChange, bookId}) => {
+export const BookEditContent = ({formData, handleSubmit, handleChange, handleArrayChange, bookId, handleReset}) => {
     return (
         <div className="user-main">
             <form onSubmit={handleSubmit} className="edit-back">
@@ -97,6 +98,7 @@ export const BookEditContent = ({formData, handleSubmit, handleChange, handleArr
                     {bookId && (
                         <DeleteButton id={bookId}/>
                     )}
+                    <ClearButton handleReset={handleReset}/>
                     <SaveButton />
                 </div>
             </form>

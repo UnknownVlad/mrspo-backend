@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Menu} from "../../components/ui/Menu/Menu";
 import {BookEditContent} from "../../components/BookEditContent/BookEditContent";
 import {addBookService, getBookById, updateBookService} from "../../utils/authService";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 export const BookEditPage = () => {
     const location = useLocation();
@@ -19,7 +19,15 @@ export const BookEditPage = () => {
         onSale: false,
     };
 
-    const [formData, setFormData] = useState(initialFormData);
+    const [formData, setFormData] = useState(() => {
+        const savedData = localStorage.getItem('bookFormData');
+        return savedData ? JSON.parse(savedData) : initialFormData;
+    });
+
+    useEffect(() => {
+        setFormData(formData);
+        localStorage.setItem('bookFormData', JSON.stringify(formData));
+    }, [formData]);
 
     useEffect(() => {
         if (isEdit && bookId) {
@@ -27,14 +35,8 @@ export const BookEditPage = () => {
                 .then((data) => {
                     setFormData(data);
                 })
-        } else {
-            setFormData(initialFormData);
         }
     }, [bookId, isEdit]);
-
-    useEffect(() => {
-        localStorage.setItem('bookFormData', JSON.stringify(formData));
-    }, [formData]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -71,20 +73,16 @@ export const BookEditPage = () => {
                 console.log("Book added successfully:", response);
             }
 
-            setFormData({
-                bookName: "",
-                description: "",
-                pageCount: "",
-                circulation: "",
-                authors: [],
-                genres: [],
-                rating: "",
-                onSale: false,
-            });
+            setFormData(initialFormData);
             localStorage.removeItem('bookFormData');
         } catch (error) {
             console.error("Error processing book:", error);
         }
+    };
+
+    const handleReset = () => {
+        setFormData(initialFormData);
+        localStorage.removeItem('bookFormData');
     };
 
     return (
@@ -96,6 +94,7 @@ export const BookEditPage = () => {
                 handleChange={handleChange}
                 handleArrayChange={handleArrayChange}
                 bookId={bookId}
+                handleReset={handleReset}
             />
         </div>
     );

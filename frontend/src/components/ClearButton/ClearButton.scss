@@ -1,0 +1,9 @@
+@use '../AddButton/AddButton' as bk;
+
+.button-clear {
+  @include bk.style-button;
+  & > p {
+    color: #1C274C;
+    font-size: 16px;
+  }
+}
