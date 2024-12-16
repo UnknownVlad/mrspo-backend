@@ -5,7 +5,6 @@ import {deleteBookById} from "../../utils/authService";
 
 export const DeleteButton = ({id}) => {
     const handleDelete = async (id) => {
-        console.log(id);
         if (window.confirm("Are you sure you want to delete this book?")) {
             try {
                 await deleteBookById(id);

@@ -14,11 +14,9 @@ export const LoginContent = ({ inputFields, formData, handleInputChange }) => {
     const handleLogin = async () => {
         try {
             await loginService(formData, navigate);
-            console.log('Login successful');
             setErrorMessage(null);
             setErrorFields({});
         } catch (error) {
-            console.error('Login failed:', error);
             setErrorMessage(error.message);
 
             const newErrorFields = {};

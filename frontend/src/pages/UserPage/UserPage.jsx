@@ -20,8 +20,6 @@ export const UserPage = () => {
         };
     }, []);
 
-    console.log(userBookData);
-
     return (
         <div className="user-page">
             <Menu user={userData}/>

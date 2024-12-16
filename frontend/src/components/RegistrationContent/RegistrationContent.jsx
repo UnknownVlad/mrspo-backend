@@ -13,11 +13,9 @@ export const RegistrationContent = ({ inputFields, formData, handleInputChange }
     const handleRegister = async () => {
         try {
             await registerService(formData);
-            console.log('Registration successful');
             setErrorMessage(null);
             setErrorFields({});
         } catch (error) {
-            console.error('Registration failed:', error);
             setErrorMessage(error.message);
 
             const newErrorFields = {};
