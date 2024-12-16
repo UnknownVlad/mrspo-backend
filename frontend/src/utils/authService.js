@@ -145,8 +145,14 @@ export const loginService = async (formData, navigate) => {
 
         return userData;
     } catch (error) {
-        console.error('Login failed:', error);
-        throw error;
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data.error.message || 'An unknown error occurred';
+            console.error(`Response data: ${errorMessage}`);
+            throw new Error(errorMessage);
+        } else {
+            console.error('Unexpected error:', error);
+            throw new Error('An unexpected error occurred');
+        }
     }
 };
 
@@ -156,7 +162,13 @@ export const registerService = async (formData) => {
         const response = await axios.post(`${API_URL}/user/registration`, { username, password });
         return response.data;
     } catch (error) {
-        console.error('Registration failed:', error);
-        throw error;
+        if (axios.isAxiosError(error)) {
+            const errorMessage = error.response?.data.error.message || 'An unknown error occurred';
+            console.error(`Response data: ${errorMessage}`);
+            throw new Error(errorMessage);
+        } else {
+            console.error('Unexpected error:', error);
+            throw new Error('An unexpected error occurred');
+        }
     }
 };
