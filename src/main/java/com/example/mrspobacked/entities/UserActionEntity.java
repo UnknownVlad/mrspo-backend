@@ -27,7 +27,6 @@ public class UserActionEntity extends BaseEntity{
 
     String methodName;
 
-    @Lob
     @Convert(converter = JsonListAttributeConverter.class) // Используем наш конвертер для сериализации/десериализации
     @Column(name = "request_params", columnDefinition = "TEXT") // Храним как строку JSON
     Collection<Map<String, Object>> requestParams;
