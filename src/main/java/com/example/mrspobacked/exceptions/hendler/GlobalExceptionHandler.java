@@ -2,13 +2,12 @@ package com.example.mrspobacked.exceptions.hendler;
 
 import com.example.mrspobacked.controllers.BookController;
 import com.example.mrspobacked.controllers.UserController;
-import com.example.mrspobacked.controllers.dtos.common.AdditionalInfo;
 import com.example.mrspobacked.controllers.dtos.common.CommonErrorResponseDto;
 import com.example.mrspobacked.controllers.dtos.common.ComplexErrorDto;
 import com.example.mrspobacked.controllers.dtos.common.ValidationInfo;
 import com.example.mrspobacked.exceptions.BookNotFoundException;
 import com.example.mrspobacked.exceptions.UserAlreadyExistsException;
-import com.example.mrspobacked.exceptions.UserNotFoundException;
+import com.example.mrspobacked.exceptions.UserNotFoundOrPasswordNotMatchException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -81,9 +80,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(buildDefaultError(ex, HttpStatus.CONFLICT));
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<CommonErrorResponseDto> handleUserNotFoundException(UserNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(buildDefaultError(ex, HttpStatus.NOT_FOUND));
+    @ExceptionHandler(UserNotFoundOrPasswordNotMatchException.class)
+    public ResponseEntity<CommonErrorResponseDto> handleUserNotFoundException(UserNotFoundOrPasswordNotMatchException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildDefaultError(ex, HttpStatus.BAD_REQUEST));
     }
 
     @ExceptionHandler(BookNotFoundException.class)

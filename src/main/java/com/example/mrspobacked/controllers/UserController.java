@@ -50,7 +50,7 @@ public class UserController {
     public ResponseEntity<AuthUserResponseDto> auth(@Valid  @RequestBody AuthUserRequestDto authUserRequestDto) {
         log.debug("UserController#auth: {}", authUserRequestDto);
 
-        UserDetails userEntity = userService.loadUserByUsername(authUserRequestDto.getUsername());
+        UserDetails userEntity = userService.authUser(authUserRequestDto.getUsername(), authUserRequestDto.getPassword());
         String jwtToken = jwtService.generateToken(userEntity);
         return ResponseEntity.ok(AuthUserResponseDto.builder().success(true).token(jwtToken).expirationTime(jwtService.getExpirationTime()).build());
     }

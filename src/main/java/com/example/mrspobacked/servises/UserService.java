@@ -3,7 +3,7 @@ package com.example.mrspobacked.servises;
 import com.example.mrspobacked.controllers.dtos.requests.RegistrationUserRequestDto;
 import com.example.mrspobacked.entities.UserEntity;
 import com.example.mrspobacked.exceptions.UserAlreadyExistsException;
-import com.example.mrspobacked.exceptions.UserNotFoundException;
+import com.example.mrspobacked.exceptions.UserNotFoundOrPasswordNotMatchException;
 import com.example.mrspobacked.exceptions.UserUnauthorizedException;
 import com.example.mrspobacked.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +28,23 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("Пользователь с таким именем не найден"));
+        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundOrPasswordNotMatchException("Не верный логин/пароль"));
     }
 
 
-    private UserEntity findByUsername(String username){
-        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("Пользователь с таким именем не найден"));
+    public UserDetails authUser(String username, String password) {
+        UserDetails userDetails = this.loadUserByUsername(username);
+        if (Objects.equals(
+                passwordEncoder.encode(password),
+                userDetails.getPassword()
+        ))
+            throw new UserNotFoundOrPasswordNotMatchException("Не верный логин/пароль");
+        return userDetails;
+    }
+
+
+    private UserEntity findByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundOrPasswordNotMatchException("Не верный логин/пароль"));
     }
 
     @Transactional
