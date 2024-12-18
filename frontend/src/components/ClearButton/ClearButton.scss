@@ -6,4 +6,8 @@
     color: #1C274C;
     font-size: 16px;
   }
+
+  &:active{
+    transform: scale(0.90)
+  }
 }
