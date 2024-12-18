@@ -135,10 +135,8 @@ export const loginService = async (formData, navigate) => {
         return userData;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            const errorMessage = error.response?.data.error.message || 'An unknown error occurred';
-            throw new Error(errorMessage);
-        } else {
-            throw new Error('An unexpected error occurred');
+            console.log(error.response?.data.error);
+            throw error.response?.data.error || 'An unknown error occurred';
         }
     }
 };
@@ -150,10 +148,8 @@ export const registerService = async (formData) => {
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            const errorMessage = error.response?.data.error.message || 'An unknown error occurred';
-            throw new Error(errorMessage);
-        } else {
-            throw new Error('An unexpected error occurred');
+            console.log(error.response?.data.error);
+            throw error.response?.data.error || 'An unknown error occurred';
         }
     }
 };

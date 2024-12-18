@@ -16,7 +16,10 @@ export const RegistrationContent = ({ inputFields, formData, handleInputChange }
             setErrorMessage(null);
             setErrorFields({});
         } catch (error) {
-            setErrorMessage(error.message);
+            error.validationDetails ?
+                setErrorMessage(error.validationDetails)
+                :
+                setErrorMessage([{ description: error.message }]);
 
             const newErrorFields = {};
             inputFields.forEach(field => {
@@ -52,7 +55,11 @@ export const RegistrationContent = ({ inputFields, formData, handleInputChange }
                 );
             })}
             {errorMessage &&
-                <p className="error-login">{errorMessage}</p>
+                <ul>
+                    {errorMessage.map((error, index) => (
+                        <p className="error-login" key={index}>{error.description}</p>
+                    ))}
+                </ul>
             }
             <div style={{ marginTop: '20px' }}>
                 <LoginButton title={'Create Account'} onClick={handleRegister} />
